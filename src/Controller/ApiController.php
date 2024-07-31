@@ -13,7 +13,10 @@ class ApiController extends AbstractController
     {
         $data = [
             'message' => 'Hello, this is your data!',
-            'date' => (new \DateTime())->format('Y-m-d H:i:s')
+            'date' => (new \DateTime())->format('Y-m-d H:i:s'),
+            'company' => [
+                'name' => 'Axe E-Santé',
+            ],
         ];
 
         return new JsonResponse($data);
