@@ -1,6 +1,6 @@
 import React from "react";
 
-const Footer = ({company}) => {
+const Footer = ({companyName}) => {
 
     const year = new Date().getFullYear()
     ;
@@ -12,7 +12,7 @@ const Footer = ({company}) => {
                  bottom: 0,
                  right: 0,
              }}>
-            <p>{company?.name ? company.name : 'Tout droits réservés'}&nbsp;-&nbsp;</p>
+            <p>{companyName ? companyName : 'Tout droits réservés'}&nbsp;-&nbsp;</p>
             <p>{year}</p>
         </div>
     );
