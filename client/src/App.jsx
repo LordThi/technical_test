@@ -15,7 +15,7 @@ function App() {
             .catch(error => console.error('Error fetching data:', error));
     }, []);
 
-    const company = data ? data.company : null;
+    const companyName = data?.company?.name || null;
 
     const handleCandidat = (candidat) => {
         setCandidat(candidat);
@@ -26,8 +26,8 @@ function App() {
     return (
         <div>
             {!isLogged && <Login handleCandidat={handleCandidat}/>}
-            {isLogged && <Instructions/>}
-            <Footer company={company}/>
+            {isLogged && <Instructions companyName={companyName} candidat={candidat}/>}
+            <Footer companyName={companyName}/>
         </div>
     );
 }
