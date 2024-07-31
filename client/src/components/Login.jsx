@@ -21,7 +21,6 @@ const Login = ({handleCandidat}) => {
 
     return (
         <Container className="mt-5 center">
-            {console.log(candidat.firstname)}
             <h2 className="mb-4">Login</h2>
             <p>
                 Bienvenue sur notre plateforme de tests technique. Votre profil a su attirer notre attention et nous

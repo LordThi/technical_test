@@ -18,7 +18,6 @@ function App() {
     const company = data ? data.company : null;
 
     const handleCandidat = (candidat) => {
-        console.log('le candidat est: ', candidat);
         setCandidat(candidat);
         if (candidat.firstname.length && candidat.lastname && candidat.mail)
             setLogged(true)
@@ -26,8 +25,6 @@ function App() {
 
     return (
         <div>
-            {console.log(data)}
-            {console.log(candidat)}
             {!isLogged && <Login handleCandidat={handleCandidat}/>}
             {isLogged && <Instructions/>}
             <Footer company={company}/>
