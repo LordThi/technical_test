@@ -25,16 +25,10 @@ class Question
     private string $texteQuestion;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Niveau")
-     * @ORM\JoinColumn(nullable=false, name="niveau_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Difficulte")
+     * @ORM\JoinColumn(nullable=false, name="difficulte_id", referencedColumnName="id")
      */
-    private Niveau $niveau;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\TypePoste")
-     * @ORM\JoinColumn(nullable=false, name="type_poste_id", referencedColumnName="id")
-     */
-    private TypePoste $typePoste;
+    private Difficulte $difficulte;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Quiz", inversedBy="questions")
@@ -69,26 +63,14 @@ class Question
         return $this;
     }
 
-    public function getNiveau(): Niveau
+    public function getDifficulte(): Difficulte
     {
-        return $this->niveau;
+        return $this->difficulte;
     }
 
-    public function setNiveau(Niveau $niveau): self
+    public function setDifficulte(Difficulte $difficulte): self
     {
-        $this->niveau = $niveau;
-
-        return $this;
-    }
-
-    public function getTypePoste(): TypePoste
-    {
-        return $this->typePoste;
-    }
-
-    public function setTypePoste(TypePoste $typePoste): self
-    {
-        $this->typePoste = $typePoste;
+        $this->difficulte = $difficulte;
 
         return $this;
     }
