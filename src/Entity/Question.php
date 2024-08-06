@@ -37,6 +37,50 @@ class Question
     private Quiz $quiz;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\ThemeQuestion")
+     * @ORM\JoinColumn(name="theme_id", referencedColumnName="id", nullable=false)
+     */
+    private ThemeQuestion $themeQuestion;
+
+    /**
+     * @return ThemeQuestion
+     */
+    public function getThemeQuestion(): ThemeQuestion
+    {
+        return $this->themeQuestion;
+    }
+
+    /**
+     * @param ThemeQuestion $themeQuestion
+     */
+    public function setThemeQuestion(ThemeQuestion $themeQuestion): void
+    {
+        $this->themeQuestion = $themeQuestion;
+    }
+
+    /**
+     * @return TypeQuestion
+     */
+    public function getTypeQuestion(): TypeQuestion
+    {
+        return $this->typeQuestion;
+    }
+
+    /**
+     * @param TypeQuestion $typeQuestion
+     */
+    public function setTypeQuestion(TypeQuestion $typeQuestion): void
+    {
+        $this->typeQuestion = $typeQuestion;
+    }
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\TypeQuestion")
+     * @ORM\JoinColumn(name="type_id", referencedColumnName="id", nullable=false)
+     */
+    private TypeQuestion $typeQuestion;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Reponse", mappedBy="question")
      */
     private Collection $reponses;
