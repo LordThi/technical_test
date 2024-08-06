@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="CandidatReponses")
+ * @ORM\Table(name="CandidatReponse")
  * @ORM\Entity(repositoryClass="App\Repository\CandidatReponseRepository")
  */
 class CandidatReponse
@@ -36,12 +36,12 @@ class CandidatReponse
     private Reponse $reponse;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="datetime", name="date_reponse")
      */
-    private int $tempsReponse;
+    private \DateTime $dateReponse;
 
     /**
-     * @ORM\Column (type="boolean")
+     * @ORM\Column (name="sortie_ecran", type="boolean")
      */
     private bool $sortieEcran;
 
@@ -128,17 +128,17 @@ class CandidatReponse
     /**
      * @return int
      */
-    public function getTempsReponse(): int
+    public function getDateReponse(): int
     {
-        return $this->tempsReponse;
+        return $this->dateReponse;
     }
 
     /**
-     * @param int $tempsReponse
+     * @param int $dateReponse
      */
-    public function setTempsReponse(int $tempsReponse): void
+    public function setDateReponse(int $dateReponse): void
     {
-        $this->tempsReponse = $tempsReponse;
+        $this->dateReponse = $dateReponse;
     }
 
 

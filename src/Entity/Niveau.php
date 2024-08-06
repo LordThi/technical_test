@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="Niveaux")
+ * @ORM\Table(name="Niveau")
  * @ORM\Entity(repositoryClass="App\Repository\NiveauRepository")
  */
 class Niveau

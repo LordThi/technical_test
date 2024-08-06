@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @ORM\Table(name="Quiz")
  * @ORM\Entity(repositoryClass="App\Repository\QuizRepository")
  */
 class Quiz
@@ -27,10 +28,10 @@ class Quiz
     private string $titre;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", name="temps_max")
      * @Assert\GreaterThan(0)
      */
-    private int $tempsAlloue;
+    private int $tempsMax;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Question", mappedBy="quiz")
@@ -38,7 +39,7 @@ class Quiz
     private Collection $questions;
 
     /**
-     * @ORM\Column (type="int")
+     * @ORM\Column (name="nombre_questions", type="int")
      */
     private int $nombreQuestions;
 
@@ -92,14 +93,14 @@ class Quiz
         return $this;
     }
 
-    public function getTempsAlloue(): ?int
+    public function getTempsMax(): ?int
     {
-        return $this->tempsAlloue;
+        return $this->tempsMax;
     }
 
-    public function setTempsAlloue(int $tempsAlloue): self
+    public function setTempsMax(int $tempsMax): self
     {
-        $this->tempsAlloue = $tempsAlloue;
+        $this->tempsMax = $tempsMax;
 
         return $this;
     }
