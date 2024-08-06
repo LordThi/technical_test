@@ -2,21 +2,41 @@ import React, {useState} from 'react';
 import {Form, Button, Container, Row, Col, Fade} from 'react-bootstrap';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronRight} from "@fortawesome/free-solid-svg-icons";
+import apiCandidat from '../services/apiCandidat';
 
 const Login = ({handleCandidat}) => {
     const [candidat, setCandidat] = useState({
         firstname: '',
         lastname: '',
         mail: ''
-    })
+    });
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        handleCandidat(candidat);
+    const handleChange = (e) => {
+        const {id, value} = e.target;
+        setCandidat({
+            ...candidat,
+            [id]: value
+        });
     };
 
     const isFormComplete = () => {
         return candidat.firstname !== '' && candidat.lastname !== '' && candidat.mail !== '';
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        if (isFormComplete()) {
+            handleCandidat(candidat); // Pass candidate data to parent
+            try {
+                await apiCandidat.submitCandidat(candidat); // Submit data to API
+                console.log('Success!');
+                // Add logic for success, such as redirecting or showing a message
+            } catch (error) {
+                console.error('Error:', error);
+                console.log('nope!');
+                // Add logic for error, such as showing an error message
+            }
+        }
     };
 
     return (
@@ -35,7 +55,7 @@ const Login = ({handleCandidat}) => {
                                 type="text"
                                 placeholder="Prénom"
                                 value={candidat.firstname}
-                                onChange={(e) => setCandidat({...candidat, firstname: e.target.value})}
+                                onChange={handleChange}
                                 required
                             />
                         </Form.Group>
@@ -46,7 +66,7 @@ const Login = ({handleCandidat}) => {
                                 type="text"
                                 placeholder="Nom"
                                 value={candidat.lastname}
-                                onChange={(e) => setCandidat({...candidat, lastname: e.target.value})}
+                                onChange={handleChange}
                                 required
                             />
                         </Form.Group>
@@ -54,12 +74,12 @@ const Login = ({handleCandidat}) => {
                 </Row>
                 <Row>
                     <Col>
-                        <Form.Group className="mb-3" controlId="email">
+                        <Form.Group className="mb-3" controlId="mail">
                             <Form.Control
                                 type="email"
                                 placeholder="Email"
                                 value={candidat.mail}
-                                onChange={(e) => setCandidat({...candidat, mail: e.target.value})}
+                                onChange={handleChange}
                                 required
                             />
                         </Form.Group>
@@ -73,7 +93,6 @@ const Login = ({handleCandidat}) => {
                                 </Button>
                             </div>
                         </Fade>
-
                     </Col>
                 </Row>
             </Form>
