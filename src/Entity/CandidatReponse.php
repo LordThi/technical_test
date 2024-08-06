@@ -41,6 +41,27 @@ class CandidatReponse
     private int $tempsReponse;
 
     /**
+     * @ORM\Column (type="boolean")
+     */
+    private bool $sortieEcran;
+
+    /**
+     * @return bool
+     */
+    public function isSortieEcran(): bool
+    {
+        return $this->sortieEcran;
+    }
+
+    /**
+     * @param bool $sortieEcran
+     */
+    public function setSortieEcran(bool $sortieEcran): void
+    {
+        $this->sortieEcran = $sortieEcran;
+    }
+
+    /**
      * @return int
      */
     public function getId(): int
