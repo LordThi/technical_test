@@ -27,13 +27,6 @@ class Quiz
     private string $titre;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Difficulte")
-     * @ORM\JoinColumn(name="difficulte_id", referencedColumnName="id", nullable=false)
-     */
-    private Difficulte $difficulte;
-
-
-    /**
      * @ORM\Column(type="integer")
      * @Assert\GreaterThan(0)
      */
@@ -43,6 +36,27 @@ class Quiz
      * @ORM\OneToMany(targetEntity="App\Entity\Question", mappedBy="quiz")
      */
     private Collection $questions;
+
+    /**
+     * @ORM\Column (type="int")
+     */
+    private int $nombreQuestions;
+
+    /**
+     * @return int
+     */
+    public function getNombreQuestions(): int
+    {
+        return $this->nombreQuestions;
+    }
+
+    /**
+     * @param int $nombreQuestions
+     */
+    public function setNombreQuestions(int $nombreQuestions): void
+    {
+        $this->nombreQuestions = $nombreQuestions;
+    }
 
     public function __construct()
     {
