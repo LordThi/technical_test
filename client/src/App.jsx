@@ -1,7 +1,11 @@
-import React, {useEffect, useState} from 'react';
+// src/App.jsx
+// eslint-disable-next-line no-unused-vars
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from "./components/Login.jsx";
 import Footer from "./components/Footer.jsx";
 import Instructions from "./components/Instructions.jsx";
+import AdminDashboard from "./components/Admin/AdminDashboard.jsx";
 
 function App() {
     const [data, setData] = useState(null);
@@ -20,15 +24,22 @@ function App() {
     const handleCandidat = (candidat) => {
         setCandidat(candidat);
         if (candidat.firstname.length && candidat.lastname && candidat.mail)
-            setLogged(true)
+            setLogged(true);
     };
 
     return (
-        <div>
-            {!isLogged && <Login handleCandidat={handleCandidat}/>}
-            {isLogged && <Instructions companyName={companyName} candidat={candidat}/>}
-            <Footer companyName={companyName}/>
-        </div>
+        <Router>
+            <Routes>
+                <Route path="/admin" element={<AdminDashboard />} />
+                <Route path="/" element={
+                    <>
+                        {!isLogged && <Login handleCandidat={handleCandidat} />}
+                        {isLogged && <Instructions companyName={companyName} candidat={candidat} />}
+                    </>
+                } />
+            </Routes>
+            <Footer companyName={companyName} />
+        </Router>
     );
 }
 
