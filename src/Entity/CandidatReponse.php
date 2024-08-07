@@ -4,142 +4,96 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Table(name="CandidatReponse")
- * @ORM\Entity(repositoryClass="App\Repository\CandidatReponseRepository")
- */
+#[ORM\Entity(repositoryClass: 'App\Repository\CandidatReponseRepository')]
+#[ORM\Table(name: 'CandidatReponse')]
 class CandidatReponse
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private int $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Candidat")
-     * @ORM\JoinColumn(nullable=false, name="candidat_id", referencedColumnName="id")
-     */
+    #[ORM\ManyToOne(targetEntity: Candidat::class)]
+    #[ORM\JoinColumn(name: 'candidat_id', referencedColumnName: 'id', nullable: false)]
     private Candidat $candidat;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Question")
-     * @ORM\JoinColumn(nullable=false, name="question_id", referencedColumnName="id")
-     */
+    #[ORM\ManyToOne(targetEntity: Question::class)]
+    #[ORM\JoinColumn(name: 'question_id', referencedColumnName: 'id', nullable: false)]
     private Question $question;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Reponse")
-     * @ORM\JoinColumn(nullable=false, name="reponse_id", referencedColumnName="id")
-     */
+    #[ORM\ManyToOne(targetEntity: Reponse::class)]
+    #[ORM\JoinColumn(name: 'reponse_id', referencedColumnName: 'id', nullable: false)]
     private Reponse $reponse;
 
-    /**
-     * @ORM\Column(type="datetime", name="date_reponse")
-     */
+    #[ORM\Column(name: 'date_reponse', type: 'datetime')]
     private \DateTime $dateReponse;
 
-    /**
-     * @ORM\Column (name="sortie_ecran", type="boolean")
-     */
+    #[ORM\Column(name: 'sortie_ecran', type: 'boolean')]
     private bool $sortieEcran;
 
-    /**
-     * @return bool
-     */
     public function isSortieEcran(): bool
     {
         return $this->sortieEcran;
     }
 
-    /**
-     * @param bool $sortieEcran
-     */
-    public function setSortieEcran(bool $sortieEcran): void
+    public function setSortieEcran(bool $sortieEcran): self
     {
         $this->sortieEcran = $sortieEcran;
+        return $this;
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @param int $id
-     */
-    public function setId(int $id): void
+    public function setId(int $id): self
     {
         $this->id = $id;
+        return $this;
     }
 
-    /**
-     * @return Candidat
-     */
     public function getCandidat(): Candidat
     {
         return $this->candidat;
     }
 
-    /**
-     * @param Candidat $candidat
-     */
-    public function setCandidat(Candidat $candidat): void
+    public function setCandidat(Candidat $candidat): self
     {
         $this->candidat = $candidat;
+        return $this;
     }
 
-    /**
-     * @return Question
-     */
     public function getQuestion(): Question
     {
         return $this->question;
     }
 
-    /**
-     * @param Question $question
-     */
-    public function setQuestion(Question $question): void
+    public function setQuestion(Question $question): self
     {
         $this->question = $question;
+        return $this;
     }
 
-    /**
-     * @return Reponse
-     */
     public function getReponse(): Reponse
     {
         return $this->reponse;
     }
 
-    /**
-     * @param Reponse $reponse
-     */
-    public function setReponse(Reponse $reponse): void
+    public function setReponse(Reponse $reponse): self
     {
         $this->reponse = $reponse;
+        return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getDateReponse(): int
+    public function getDateReponse(): \DateTime
     {
         return $this->dateReponse;
     }
 
-    /**
-     * @param int $dateReponse
-     */
-    public function setDateReponse(int $dateReponse): void
+    public function setDateReponse(\DateTime $dateReponse): self
     {
         $this->dateReponse = $dateReponse;
+        return $this;
     }
-
-
 }

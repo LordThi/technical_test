@@ -5,84 +5,48 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\QuestionRepository")
  * @ORM\Table(name="Question")
  */
+#[ORM\Entity(repositoryClass: 'App\Repository\QuestionRepository')]
+#[ORM\Table(name: 'Question')]
 class Question
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(name="id", type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[Groups(['question:read', 'question:write'])]
     private int $id;
 
-    /**
-     * @ORM\Column(name="texte_question", type="string", length=255)
-     */
+    #[ORM\Column(name: 'texte_question', type: 'string', length: 255)]
+    #[Groups(['question:read', 'question:write'])]
     private string $texteQuestion;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Difficulte")
-     * @ORM\JoinColumn(nullable=false, name="difficulte_id", referencedColumnName="id")
-     */
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\Difficulte')]
+    #[ORM\JoinColumn(name: 'difficulte_id', referencedColumnName: 'id', nullable: false)]
+    #[Groups(['question:read', 'question:write'])]
     private Difficulte $difficulte;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Quiz", inversedBy="questions")
-     * @ORM\JoinColumn(name="quiz_id", referencedColumnName="id", nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\Quiz', inversedBy: 'questions')]
+    #[ORM\JoinColumn(name: 'quiz_id', referencedColumnName: 'id', nullable: false)]
+    #[Groups(['question:read', 'question:write'])]
     private Quiz $quiz;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ThemeQuestion")
-     * @ORM\JoinColumn(name="theme_id", referencedColumnName="id", nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\ThemeQuestion')]
+    #[ORM\JoinColumn(name: 'theme_id', referencedColumnName: 'id', nullable: false)]
+    #[Groups(['question:read', 'question:write'])]
     private ThemeQuestion $themeQuestion;
 
-    /**
-     * @return ThemeQuestion
-     */
-    public function getThemeQuestion(): ThemeQuestion
-    {
-        return $this->themeQuestion;
-    }
-
-    /**
-     * @param ThemeQuestion $themeQuestion
-     */
-    public function setThemeQuestion(ThemeQuestion $themeQuestion): void
-    {
-        $this->themeQuestion = $themeQuestion;
-    }
-
-    /**
-     * @return TypeQuestion
-     */
-    public function getTypeQuestion(): TypeQuestion
-    {
-        return $this->typeQuestion;
-    }
-
-    /**
-     * @param TypeQuestion $typeQuestion
-     */
-    public function setTypeQuestion(TypeQuestion $typeQuestion): void
-    {
-        $this->typeQuestion = $typeQuestion;
-    }
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\TypeQuestion")
-     * @ORM\JoinColumn(name="type_id", referencedColumnName="id", nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\TypeQuestion')]
+    #[ORM\JoinColumn(name: 'type_id', referencedColumnName: 'id', nullable: false)]
+    #[Groups(['question:read', 'question:write'])]
     private TypeQuestion $typeQuestion;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Reponse", mappedBy="question")
-     */
+    #[ORM\OneToMany(targetEntity: 'App\Entity\Reponse', mappedBy: 'question')]
+    #[Groups(['question:read'])]
     private Collection $reponses;
 
     public function __construct()
@@ -131,9 +95,30 @@ class Question
         return $this;
     }
 
-    /**
-     * @return Collection|Reponse[]
-     */
+    public function getThemeQuestion(): ThemeQuestion
+    {
+        return $this->themeQuestion;
+    }
+
+    public function setThemeQuestion(ThemeQuestion $themeQuestion): self
+    {
+        $this->themeQuestion = $themeQuestion;
+
+        return $this;
+    }
+
+    public function getTypeQuestion(): TypeQuestion
+    {
+        return $this->typeQuestion;
+    }
+
+    public function setTypeQuestion(TypeQuestion $typeQuestion): self
+    {
+        $this->typeQuestion = $typeQuestion;
+
+        return $this;
+    }
+
     public function getReponses(): Collection
     {
         return $this->reponses;

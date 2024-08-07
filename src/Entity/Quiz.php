@@ -1,63 +1,43 @@
 <?php
 
-
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="Quiz")
  * @ORM\Entity(repositoryClass="App\Repository\QuizRepository")
  */
+#[ORM\Entity(repositoryClass: 'App\Repository\QuizRepository')]
+#[ORM\Table(name: 'Quiz')]
 class Quiz
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    #[Groups(['quiz:read'])]
     private int $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
-     */
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['quiz:read', 'quiz:write'])]
     private string $titre;
 
-    /**
-     * @ORM\Column(type="integer", name="temps_max")
-     * @Assert\GreaterThan(0)
-     */
+    #[ORM\Column(name: 'temps_max', type: 'integer')]
+    #[Assert\GreaterThan(0)]
+    #[Groups(['quiz:read','quiz:write'])]
     private int $tempsMax;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Question", mappedBy="quiz")
-     */
+    #[ORM\OneToMany(targetEntity: 'App\Entity\Question', mappedBy: 'quiz')]
+    #[Groups(['quiz:read'])]
     private Collection $questions;
 
-    /**
-     * @ORM\Column (name="nombre_questions", type="int")
-     */
+    #[ORM\Column(name: 'nombre_questions', type: 'integer')]
+    #[Groups(['quiz:read','quiz:write'])]
     private int $nombreQuestions;
-
-    /**
-     * @return int
-     */
-    public function getNombreQuestions(): int
-    {
-        return $this->nombreQuestions;
-    }
-
-    /**
-     * @param int $nombreQuestions
-     */
-    public function setNombreQuestions(int $nombreQuestions): void
-    {
-        $this->nombreQuestions = $nombreQuestions;
-    }
 
     public function __construct()
     {
@@ -77,18 +57,6 @@ class Quiz
     public function setTitre(string $titre): self
     {
         $this->titre = $titre;
-
-        return $this;
-    }
-
-    public function getDifficulte(): Difficulte
-    {
-        return $this->difficulte;
-    }
-
-    public function setDifficulte($difficulte): self
-    {
-        $this->difficulte = $difficulte;
 
         return $this;
     }
@@ -132,5 +100,20 @@ class Quiz
 
         return $this;
     }
-}
 
+    /**
+     * @return int
+     */
+    public function getNombreQuestions(): int
+    {
+        return $this->nombreQuestions;
+    }
+
+    /**
+     * @param int $nombreQuestions
+     */
+    public function setNombreQuestions(int $nombreQuestions): void
+    {
+        $this->nombreQuestions = $nombreQuestions;
+    }
+}

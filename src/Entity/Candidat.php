@@ -5,60 +5,44 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="Candidats")
  * @ORM\Entity(repositoryClass="App\Repository\CandidatRepository")
+ * @ORM\Table(name="Candidats")
  */
+#[ORM\Entity(repositoryClass: 'App\Repository\CandidatRepository')]
+#[ORM\Table(name: 'Candidats')]
 class Candidat
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private int $id;
 
-    /**
-     * @ORM\Column(type="string", length=100)
-     */
+    #[ORM\Column(type: 'string', length: 100)]
     private string $nom;
 
-    /**
-     * @ORM\Column(type="string", length=100)
-     */
+    #[ORM\Column(type: 'string', length: 100)]
     private string $prenom;
 
-    /**
-     * @ORM\Column(type="string", length=255, unique=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
     private string $email;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Quiz")
-     * @ORM\JoinColumn(nullable=false, name="quiz_id", referencedColumnName="id")
-     */
+    
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\Quiz')]
+    #[ORM\JoinColumn(name: 'quiz_id', referencedColumnName: 'id', nullable: true)]
     private Quiz $quiz;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Niveau")
-     * @ORM\JoinColumn(nullable=false, name="niveau_id", referencedColumnName="id")
-     */
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\Niveau')]
+    #[ORM\JoinColumn(name: 'niveau_id', referencedColumnName: 'id', nullable: true)]
     private Niveau $niveau;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\TypePoste")
-     * @ORM\JoinColumn(nullable=false, name="type_poste_id", referencedColumnName="id")
-     */
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\TypePoste')]
+    #[ORM\JoinColumn(name: 'type_poste_id', referencedColumnName: 'id', nullable: true)]
     private TypePoste $typePoste;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private int $tempsTotal; // Temps total en secondes pour compléter le quiz
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $tempsTotal; // Temps total en secondes pour compléter le quiz
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private \DateTime $datePassage; // Date et heure du passage du quiz
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTime $datePassage; // Date et heure du passage du quiz
 
     public function getNom(): ?string
     {

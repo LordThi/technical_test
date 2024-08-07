@@ -1,26 +1,19 @@
 <?php
 
-
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\DifficulteRepository")
- * @ORM\Table(name="Difficulte")
- */
+#[ORM\Entity(repositoryClass: 'App\Repository\DifficulteRepository')]
+#[ORM\Table(name: 'Difficulte')]
 class Difficulte
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private int $id;
 
-    /**
-     * @ORM\Column(type="string", length=255, unique=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
     private string $titre;
 
     public function getId(): ?int
@@ -40,4 +33,3 @@ class Difficulte
         return $this;
     }
 }
-
