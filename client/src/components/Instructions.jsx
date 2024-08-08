@@ -26,7 +26,7 @@ const Instructions = ({companyName, candidat}) => {
     };
 
     const greetings = <Container className="mt-5 center">
-        <h2 className="mb-4">Bienvenue {candidat.firstname},</h2>
+        <h2 className="mb-4">Bienvenue{candidat.prenom? ` ${candidat.prenom}`:''},</h2>
         <p>
             Chez {companyName || 'nous'}, nous accordons autant d'importance au candidat qu'à son savoir faire
             technique.
@@ -70,7 +70,7 @@ const Instructions = ({companyName, candidat}) => {
         <p>
             En fonction de ta confiance en toi, tu pourras gagner 1 pt, 0.75 pts ou 0.25 pts. En revanche, si tu te
             plantes, tu perds autant de points 😅...<br/>
-            Encore une fois, rien d'éliminatoire, mais cela nous permettra d'en discuter lors du débrief.gy
+            Encore une fois, rien d'éliminatoire, mais cela nous permettra d'en discuter lors du débrief.
         </p>
         <Fade in={showArrow}>
             <button
