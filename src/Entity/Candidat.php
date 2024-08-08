@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CandidatRepository")
@@ -15,34 +16,53 @@ class Candidat
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['candidat:read'])]
     private int $id;
 
     #[ORM\Column(type: 'string', length: 100)]
+    #[Groups(['candidat:read'])]
     private string $nom;
 
     #[ORM\Column(type: 'string', length: 100)]
+    #[Groups(['candidat:read'])]
     private string $prenom;
 
     #[ORM\Column(type: 'string', length: 255, unique: true)]
+    #[Groups(['candidat:read'])]
     private string $email;
-    
+
     #[ORM\ManyToOne(targetEntity: 'App\Entity\Quiz')]
     #[ORM\JoinColumn(name: 'quiz_id', referencedColumnName: 'id', nullable: true)]
+    #[Groups(['candidat:read'])]
     private Quiz $quiz;
 
     #[ORM\ManyToOne(targetEntity: 'App\Entity\Niveau')]
     #[ORM\JoinColumn(name: 'niveau_id', referencedColumnName: 'id', nullable: true)]
+    #[Groups(['candidat:read'])]
     private Niveau $niveau;
 
     #[ORM\ManyToOne(targetEntity: 'App\Entity\TypePoste')]
     #[ORM\JoinColumn(name: 'type_poste_id', referencedColumnName: 'id', nullable: true)]
+    #[Groups(['candidat:read'])]
     private TypePoste $typePoste;
 
     #[ORM\Column(type: 'integer', nullable: true)]
+    #[Groups(['candidat:read'])]
     private ?int $tempsTotal; // Temps total en secondes pour compléter le quiz
 
     #[ORM\Column(type: 'datetime', nullable: true)]
+    #[Groups(['candidat:read'])]
     private ?\DateTime $datePassage; // Date et heure du passage du quiz
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
 
     public function getNom(): ?string
     {
