@@ -6,9 +6,9 @@ import apiCandidat from '../services/apiCandidat';
 
 const Login = ({handleCandidat}) => {
     const [candidat, setCandidat] = useState({
-        firstname: '',
-        lastname: '',
-        mail: ''
+        prenom: '',
+        nom: '',
+        email: ''
     });
 
     const handleChange = (e) => {
@@ -20,21 +20,23 @@ const Login = ({handleCandidat}) => {
     };
 
     const isFormComplete = () => {
-        return candidat.firstname !== '' && candidat.lastname !== '' && candidat.mail !== '';
+        return candidat.prenom !== '' && candidat.nom !== '' && candidat.email !== '';
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (isFormComplete()) {
-            handleCandidat(candidat); // Pass candidate data to parent
+            handleCandidat(candidat);
             try {
-                await apiCandidat.submitCandidat(candidat); // Submit data to API
+                const dataToSend = {
+                    ...candidat,
+                    adminDashboard: false
+                }
+                await apiCandidat.submitCandidat(dataToSend);
                 console.log('Success!');
-                // Add logic for success, such as redirecting or showing a message
             } catch (error) {
                 console.error('Error:', error);
                 console.log('nope!');
-                // Add logic for error, such as showing an error message
             }
         }
     };
@@ -50,22 +52,22 @@ const Login = ({handleCandidat}) => {
             <Form onSubmit={handleSubmit}>
                 <Row className="mb-3">
                     <Col>
-                        <Form.Group controlId="firstname">
+                        <Form.Group controlId="prenom">
                             <Form.Control
                                 type="text"
                                 placeholder="Prénom"
-                                value={candidat.firstname}
+                                value={candidat.prenom}
                                 onChange={handleChange}
                                 required
                             />
                         </Form.Group>
                     </Col>
                     <Col>
-                        <Form.Group controlId="lastname">
+                        <Form.Group controlId="nom">
                             <Form.Control
                                 type="text"
                                 placeholder="Nom"
-                                value={candidat.lastname}
+                                value={candidat.nom}
                                 onChange={handleChange}
                                 required
                             />
@@ -74,11 +76,11 @@ const Login = ({handleCandidat}) => {
                 </Row>
                 <Row>
                     <Col>
-                        <Form.Group className="mb-3" controlId="mail">
+                        <Form.Group className="mb-3" controlId="email">
                             <Form.Control
                                 type="email"
                                 placeholder="Email"
-                                value={candidat.mail}
+                                value={candidat.email}
                                 onChange={handleChange}
                                 required
                             />
