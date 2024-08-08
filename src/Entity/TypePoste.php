@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: 'App\Repository\TypePosteRepository')]
 #[ORM\Table(name: 'TypePoste')]
@@ -11,9 +12,11 @@ class TypePoste
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['type_poste:read'])]
     private int $id;
 
     #[ORM\Column(type: 'string', length: 50)]
+    #[Groups(['type_poste:read', "type_poste:write"])]
     private string $titre;
 
     public function getId(): int
