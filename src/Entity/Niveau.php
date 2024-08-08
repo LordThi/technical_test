@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: 'App\Repository\NiveauRepository')]
 #[ORM\Table(name: 'Niveau')]
@@ -11,9 +12,11 @@ class Niveau
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['niveau:read'])]
     private int $id;
 
     #[ORM\Column(type: 'string', length: 50)]
+    #[Groups(['niveau:read', 'niveau:write'])]
     private string $titre;
 
     public function getId(): int
