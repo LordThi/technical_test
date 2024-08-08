@@ -23,7 +23,7 @@ function App() {
 
     const handleCandidat = (candidat) => {
         setCandidat(candidat);
-        if (candidat.firstname.length && candidat.lastname && candidat.mail)
+        if (candidat.prenom.length && candidat.nom && candidat.email)
             setLogged(true);
     };
 
