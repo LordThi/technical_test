@@ -4,6 +4,7 @@ import { Container } from 'react-bootstrap';
 import AdminMenu from './AdminMenu.jsx';
 import QuizForm from '../Form/QuizForm.jsx';
 import QuestionForm from '../Form/QuestionForm.jsx';
+import AdminCandidats from "./AdminCandidats.jsx";
 
 const Dashboard = () => {
     const [currentSection, setCurrentSection] = useState('dashboard');
@@ -14,6 +15,8 @@ const Dashboard = () => {
                 return <QuizForm />;
             case 'questions':
                 return <QuestionForm />;
+            case 'candidats':
+                return <AdminCandidats />;
             default:
                 return (
                     <Container className="mt-4">
