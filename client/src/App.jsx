@@ -6,6 +6,8 @@ import Login from "./components/Login.jsx";
 import Footer from "./components/Footer.jsx";
 import Instructions from "./components/Instructions.jsx";
 import AdminDashboard from "./components/Admin/AdminDashboard.jsx";
+import AdminLogin from "./components/Admin/AdminLogin.jsx";
+import PrivateRoute from "./components/PrivateRoute.jsx";
 
 function App() {
     const [data, setData] = useState(null);
@@ -30,12 +32,19 @@ function App() {
     return (
         <Router>
             <Routes>
-                <Route path="/admin" element={<AdminDashboard />} />
+
+                {/* Routes pour le candidat */}
                 <Route path="/" element={
                     <>
                         {!isLogged && <Login handleCandidat={handleCandidat} />}
                         {isLogged && <Instructions companyName={companyName} candidat={candidat} />}
                     </>
+                } />
+
+                {/* Routes protégées pour l'admin */}
+                <Route path="/admin" element={<AdminLogin />} />
+                <Route path="/admin/dashboard" element={
+                    <PrivateRoute element={<AdminDashboard />} />
                 } />
             </Routes>
             <Footer companyName={companyName} />
