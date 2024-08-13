@@ -5,14 +5,16 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @ORM\Table(name="user")
+ * @ORM\Table(name="User")
  */
 #[ORM\Entity(repositoryClass: 'App\Repository\UserRepository')]
-#[ORM\Table(name: 'user')]
-class User
+#[ORM\Table(name: 'User')]
+class User implements UserInterface
 {
     public const STATUT_ADMIN = 'ADMIN';
     public const STATUT_RECRUTEUR = 'RECRUTEUR';
@@ -20,18 +22,22 @@ class User
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
     #[ORM\Column(type: 'integer')]
+    #[Groups('user:read')]
     private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups('user:read')]
     private string $prenom;
 
     #[ORM\Column(type: 'string', length: 255, unique: true)]
+    #[Groups('user:read')]
     private string $login;
 
     #[ORM\Column(type: 'string', length: 255)]
     private string $password;
 
     #[ORM\Column(type: 'string', length: 50)]
+    #[Groups('user:read')]
     private string $statut;
 
     // Getters and Setters
@@ -86,5 +92,24 @@ class User
         }
         $this->statut = $statut;
         return $this;
+    }
+
+    public function getRoles(): array
+    {
+        return [$this->statut];
+    }
+
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+
+    public function eraseCredentials()
+    {
+    }
+
+    public function getUserIdentifier(): string
+    {
+        // TODO: Implement getUserIdentifier() method.
     }
 }
