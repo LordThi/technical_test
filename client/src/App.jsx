@@ -43,9 +43,10 @@ function App() {
 
                 {/* Routes protégées pour l'admin */}
                 <Route path="/admin" element={<AdminLogin />} />
-                <Route path="/admin/dashboard" element={
-                    <PrivateRoute element={<AdminDashboard />} />
-                } />
+                {/*<Route path="/admin/dashboard" element={*/}
+                {/*    <PrivateRoute element={<AdminDashboard />} />*/}
+                {/*} />*/}
+                <Route path="/admin/dashboard" element={<AdminDashboard />}/>
             </Routes>
             <Footer companyName={companyName} />
         </Router>

@@ -5,6 +5,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -14,7 +15,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 #[ORM\Entity(repositoryClass: 'App\Repository\UserRepository')]
 #[ORM\Table(name: 'User')]
-class User implements UserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     public const STATUT_ADMIN = 'ADMIN';
     public const STATUT_RECRUTEUR = 'RECRUTEUR';

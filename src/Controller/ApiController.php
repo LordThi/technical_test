@@ -11,6 +11,7 @@ class ApiController extends AbstractController
     #[Route('/api/data', name: 'api_data', methods: ['GET'])]
     public function getData(): JsonResponse
     {
+        phpinfo();die;
         $data = [
             'message' => 'Hello, this is your data!',
             'date' => (new \DateTime())->format('Y-m-d H:i:s'),

@@ -47,6 +47,7 @@ final class Version20240807094500 extends AbstractMigration
         $this->addSql("INSERT INTO ThemeQuestion (titre) VALUES ('CSS')");
         $this->addSql("INSERT INTO ThemeQuestion (titre) VALUES ('UX/UI')");
         $this->addSql("INSERT INTO ThemeQuestion (titre) VALUES ('Culture Dev')");
+        $this->addSql("INSERT INTO ThemeQuestion (titre) VALUES ('Culture Entreprise')");
 
         // Insertion de données dans la table TypeQuestion
         $this->addSql("INSERT INTO TypeQuestion (titre) VALUES ('Choix multiple')");

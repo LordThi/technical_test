@@ -6,7 +6,10 @@ const API_URL = '/api/login';
 
 const submitLogin = async (credentials) => {
     try {
-        const response = await axios.post(API_URL, credentials);
+        const response = await axios.post(API_URL, {
+            username: credentials.login,
+            password: credentials.password
+        });
         return response;
     } catch (error) {
         throw new Error(error.response?.data?.message || 'Login failed');

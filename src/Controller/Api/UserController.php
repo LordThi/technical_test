@@ -122,21 +122,25 @@ class UserController extends AbstractController
         return new JsonResponse(['message' => 'L\'utilisateur a bien été effacé'], Response::HTTP_NO_CONTENT);
     }
 
-    #[Route('/api/login', name: 'api_login', methods: ['POST'])]
-    public function login(Request $request): JsonResponse
-    {
-        $data = json_decode($request->getContent(), true);
-        $login = $data['login'] ?? null;
-        $password = $data['password'] ?? null;
-
-        $user = $this->userRepository->findOneBy(['login' => $login]);
-
-        if (!$user || !$this->passwordHasher->isPasswordValid($user, $password)) {
-            return new JsonResponse(['message' => 'Invalid credentials'], JsonResponse::HTTP_UNAUTHORIZED);
-        }
-
-        $token = 'tokenAFaire'; // TODO gestion creation token via jwtTokenManager
-
-        return new JsonResponse(['token' => $token]);
-    }
+//    #[Route('/api/login', name: 'api_login', methods: ['POST'])]
+//    public function login(Request $request): JsonResponse
+//    {
+//        $data = json_decode($request->getContent(), true);
+//        $login = $data['_username'] ?? '';
+//        $password = $data['_password'] ?? '';
+//
+//        if (!$login || !$password) {
+//            return new JsonResponse(['error' => 'bite'], JsonResponse::HTTP_UNAUTHORIZED);
+//        }
+//
+//        $user = $this->userRepository->findOneBy(['login' => $login]);
+//
+//        if (!$user || !$this->passwordHasher->isPasswordValid($user, $password)) {
+//            return new JsonResponse(['message' => 'Invalid credentials'], JsonResponse::HTTP_UNAUTHORIZED);
+//        }
+//
+//        $token = 'tokenAFaire'; // TODO gestion creation token via jwtTokenManager
+//
+//        return new JsonResponse(['token' => $token]);
+//    }
 }
